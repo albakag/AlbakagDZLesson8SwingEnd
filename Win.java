@@ -14,6 +14,8 @@ import java.io.IOException;
 
 
 public class Win extends JFrame {
+
+
     public Win() {
         setBounds(500, 200, 800, 600);
         setTitle("GUI Demo");
@@ -30,6 +32,7 @@ public class Win extends JFrame {
         jp[0].setLayout(new BorderLayout());
         JTextArea jta = new JTextArea();
         JScrollPane jsp = new JScrollPane(jta);
+        jsp.setBackground(Color.RED);
         jp[0].add(jsp);
 
 
@@ -51,31 +54,46 @@ public class Win extends JFrame {
         JCheckBox[] jcb = new JCheckBox[4];
         for (int i = 0; i < jcb.length; i++) {
             jcb[i] = new JCheckBox("Check #" + i);
-//            bgr3.add( jcb[i]);
             jp[1].add(jcb[i]);
         }
 
-
+        //Меня блюд
+        //Изменение №4. Вывод менюшек
         jp[2].setLayout(new FlowLayout());
-        String[] comboStr = {"Item #1", "Item #2", "Item #3", "Item #4"};
+        JPanel jPanel1 = new JPanel();
+        JPanel jPanel2 = new JPanel();
+        JPanel jPanel3 = new JPanel();
+        Button btnOk = new Button("Подтверждаю");
+        String[] comboStr = {"Menu №1", "Menu №2", "Menu №3", "Menu №4"};
         JComboBox<String> jcombo1 = new JComboBox<>(comboStr);
+        JLabel jLabel1 = new JLabel("Будни: ");
         JComboBox<String> jcombo2 = new JComboBox<>(comboStr);
-        jp[2].add(jcombo1);
-        jp[2].add(jcombo2);
+        JLabel jLabel2 = new JLabel("Праздники: ");
+        JLabel jLabelBtn = new JLabel("Подтвердите выбранное меню, нажав на кнопку:");
 
 
-        jcombo1.addActionListener(e -> System.out.println("///*-8565"));
+        jPanel1.setBackground(new Color(180,180,180));
+        jPanel2.setBackground(new Color(180,180,180));
+        jPanel3.setBackground(new Color(180,180,180));
+        jPanel1.add(jLabel1);
+        jPanel1.add(jcombo1);
+        jPanel2.add(jLabel2);
+        jPanel2.add(jcombo2);
+        jPanel3.add(jLabelBtn);
+        jPanel3.add(btnOk);
 
-//        jcombo1.addActionListener(e -> {System.out.println(jcombo1.getSelectedItem().toString() + "***");});
-//        jcombo1.addActionListener(new ActionComBox());
-//        jcombo1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                System.out.println(jcombo1.getSelectedItem().toString());
-//            }
-//        });
+        jp[2].add(jPanel1);
+        jp[2].add(jPanel2);
+        jp[2].add(jPanel3);
+
+        //Вывод выбранного пункта меню 1 комбобокса
+        jcombo1.addActionListener(e -> System.out.println("Меню будни, выбрано - " + jcombo1.getSelectedItem()));
+
+        //Вывод выбранного пункта меню 2 комбобокса
+        jcombo2.addActionListener(e -> System.out.println("Меню праздники, выбрано - " + jcombo2.getSelectedItem()));
 
 
+        //JSlider панель
         Color color = new Color(100, 200, 100);
         jp[3].setLayout(null);
         JPanel jpMini = new JPanel();
@@ -144,14 +162,6 @@ public class Win extends JFrame {
                 }
             }
         });
-
-
-//        js.addChangeListener(new ChangeListener() {
-//            @Override
-//            public void stateChanged(ChangeEvent e) {
-//                jlab.setText("Value: " + js.getValue());
-//            }
-//        });
         jpMini.setBounds(10, 40, 300, 100);
         jlab.setBounds(10, 10, 100, 20);
         jlabTwo.setBounds(110, 10, 300, 20);
@@ -159,11 +169,13 @@ public class Win extends JFrame {
 
 
 
-
+        //Изменение №3. Добавлена кнопка сохранения и настроек без реализации
         JMenuBar mainMenu = new JMenuBar();
         JMenu mFile = new JMenu("File");
         JMenu mEdit = new JMenu("Edit");
         JMenuItem miFileNew = new JMenuItem("New");
+        JMenuItem miSaveNew = new JMenuItem("Save");
+        JMenuItem miSettingsNew = new JMenuItem("Settings");
         JMenuItem miFileExit = new JMenuItem("Exit");
 
         setJMenuBar(mainMenu);
@@ -173,6 +185,10 @@ public class Win extends JFrame {
 
         mFile.add(miFileNew);
         mFile.addSeparator(); // разделительная линия
+        mFile.add(miSaveNew);
+        mFile.addSeparator(); // разделительная линия
+        mFile.add(miSettingsNew);
+        mFile.addSeparator(); // разделительная линия
         mFile.add(miFileExit);
 
         miFileExit.addActionListener(e -> System.exit(0));
@@ -180,8 +196,8 @@ public class Win extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-
-                System.out.println("BYE");
+                //изменил момент закрытия программы через крестик
+                JOptionPane.showMessageDialog(null, "Закрытие программы, нажмите на ОК для подтверждения");
             }
         });
 
