@@ -76,21 +76,21 @@ public class Win extends JFrame {
 //        });
 
 
-        int x = 50, y = 200, z = 50;
+        Color color = new Color(100, 200, 100);
         jp[3].setLayout(null);
         JPanel jpMini = new JPanel();
          JSlider js = new JSlider();
-        JLabel jlab = new JLabel("Value: 100");
+        JLabel jlab = new JLabel("Value: 50");
         JLabel jlabTwo = new JLabel("Разбавь RGB цвета вручную");
-        JButton butAddTenR = new JButton("R +10");
-        JButton butAddTenG = new JButton("G +10");
-        JButton butAddTenB = new JButton("B +10");
+        JButton butAddTenR = new JButton("R +-100");
+        JButton butAddTenG = new JButton("G +-100");
+        JButton butAddTenB = new JButton("B +-100");
         butAddTenR.setSize(30, 30);
         butAddTenG.setSize(30, 30);
         butAddTenB.setSize(30, 30);
-        js.setMaximum(200);
+        js.setMaximum(100);
         js.setMinimum(0);
-        js.setValue(100);
+        js.setValue(50);
         jpMini.add(butAddTenR);
         jpMini.add(butAddTenG);
         jpMini.add(butAddTenB);
@@ -103,44 +103,44 @@ public class Win extends JFrame {
         js.addChangeListener(e -> jlab.setText("Value: " + js.getValue()));
 
         //Изменение №1. Добавил слушателя на изменение значения JSlider, привязал к изменению фонового цвета
-
         js.addChangeListener(e -> {
             if (js.getValue() == 50) {
-                js.setBackground(new Color(x, y, z));
+                js.setBackground(color);
             } else if (js.getValue() > 50) {
-                js.setBackground(new Color(x + js.getValue(), y - js.getValue(), z + js.getValue()));
+                js.setBackground(new Color(color.getRed() + js.getValue(), color.getGreen() - js.getValue(), color.getBlue() + js.getValue()));
             } else {
-                js.setBackground(new Color(x + js.getValue(), y - js.getValue(), z + js.getValue()));
+                js.setBackground(new Color(color.getRed() + js.getValue(), color.getGreen() - js.getValue(), color.getBlue() + js.getValue()));
             }
         });
 
+        //Изменение №2. Кнопки на ручное изменение цвета
         butAddTenR.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (x > 155) {
-                    js.setBackground(new Color(x  - 100, y, z));
+                if (color.getRed() > 155) {
+                    js.setBackground(new Color(color.getRed()  - 100, color.getGreen(), color.getBlue()));
                 } else {
-                    js.setBackground(new Color(x + 100, y, z));
+                    js.setBackground(new Color(color.getRed() + 100, color.getGreen(), color.getBlue()));
                 }
             }
         });
         butAddTenG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (y > 155) {
-                    js.setBackground(new Color(x, y - 100, z));
+                if (color.getGreen() > 155) {
+                    js.setBackground(new Color(color.getRed(), color.getGreen() - 100, color.getBlue()));
                 } else {
-                    js.setBackground(new Color(x, y + 100, z));
+                    js.setBackground(new Color(color.getRed(), color.getGreen() + 100, color.getBlue()));
                 }
             }
         });
         butAddTenB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (z > 155) {
-                    js.setBackground(new Color(x, y, z - 100));
+                if (color.getBlue() > 155) {
+                    js.setBackground(new Color(color.getRed(), color.getGreen(), color.getBlue() - 100));
                 } else {
-                    js.setBackground(new Color(x, y, z + 100));
+                    js.setBackground(new Color(color.getRed(), color.getGreen(), color.getBlue() + 100));
                 }
             }
         });
